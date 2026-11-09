@@ -23,6 +23,7 @@
 - 停止：`stop.sh INSTANCE`
 - `launch.py --dry-run` 可查看 `gemma0`、`gemma1`、`qwen0` 到 `qwen3` 的最终命令和环境
 - `launch_templates.json` 保存每个副本的实际 argv 和环境
+- `start_gemma.sh`、`start_qwen36.sh`、`start_qwen3vl.sh` 是按 Word 示例整理的单副本直读式命令
 
 示例命令：
 
@@ -63,6 +64,7 @@ python launch.py qwen0 --dry-run
 - Gemma 和 Qwen3.6 入口：`gemma_qwen36/start_instance.sh`
 - Qwen3-VL-8B-Instruct 入口：`qwen3vl/start_instance.sh`
 - Qwen3-VL 最终运行根：`/tmp/wushuo-mlu-qwen3vl8b-20261106`
+- `start_gemma.sh`、`start_qwen36.sh`、`start_qwen3vl.sh` 是单副本直读式命令
 
 示例命令：
 
@@ -98,6 +100,7 @@ python -m lightllm.server.api_server \
 - Gemma 和 Qwen3.6 入口：`gemma_qwen36/start_service.sh MODEL PORT DEVICES`
 - Qwen3-VL-8B-Instruct 入口：`qwen3vl/start_instance.sh GPU_INDEX`
 - Qwen3-VL 最终运行根：`/tmp/wushuo-metax-qwen3vl8b-20261106`
+- `start_gemma.sh`、`start_qwen36.sh`、`start_qwen3vl.sh` 是单副本直读式命令
 
 示例命令：
 
@@ -143,6 +146,7 @@ python -m lightllm.server.api_server \
 - 控制器：`launch_controller.sh`
 - 环境：`source_env.sh`
 - 重建源码：`rebuild_source.py`
+- `start_gemma.sh`、`start_qwen36.sh`、`start_qwen3vl.sh` 是单副本直读式命令
 
 示例命令：
 
@@ -182,3 +186,5 @@ python -m lightllm.server.api_server \
 ## 使用提示
 
 这些文件是实际运行配置的归档。迁移到新目录前，需要同步修改脚本中指向模型、LightLLM runtime、缓存和日志的绝对路径，并保留对应平台的厂商 Python 环境。Qwen3.6 和 Qwen3-VL 请求均使用 `enable_thinking=false`。
+
+脚本使用 `python3 -m lightllm.server.api_server`。当前冻结分支没有 `lightllm.server.__main__`，所以命令保留可直接执行的实际入口，参数排版与 Word 中的 `python3 -m lightllm.server` 示例一致。

@@ -57,7 +57,7 @@ python infer.py \
 python score.py --run-dir runs/a100/gemma-smoke --require-complete
 ```
 
-正式评测去掉 `--limit-per-subset`，并固定模型 revision、服务参数、温度、随机种子和题目快照。各平台实际使用的 LightLLM 启动脚本位于 [`lightllm_scripts/`](lightllm_scripts/README.md)。
+正式评测去掉 `--limit-per-subset`，并固定模型 revision、服务参数、温度、随机种子和题目快照。各平台实际使用的 LightLLM 启动脚本位于 [`lightllm_scripts/`](lightllm_scripts/README.md)。每个平台还提供按模型拆分的 `start_gemma.sh`、`start_qwen36.sh` 和 `start_qwen3vl.sh` 直读式命令。
 
 采样参数统一记录在 [`sampling_params.json`](sampling_params.json)。运行 `infer.py` 时按模型传入对应的 `--max-tokens` 和 `--disable-thinking`，公共参数固定为 `temperature=0`、`top_p=1`、`seed=42`。Gemma 输出上限为 4096，Qwen3.6 和 Qwen3-VL 输出上限为 8192。
 
