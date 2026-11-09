@@ -1,0 +1,26 @@
+{
+  "common": {
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "seed": 42
+  },
+  "gemma-3-4b-it": {
+    "max_tokens": 4096
+  },
+  "Qwen3.6-27B": {
+    "max_tokens": 8192,
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    }
+  },
+  "Qwen3-VL-8B-Instruct": {
+    "max_tokens": 8192,
+    "extra_body": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    }
+  }
+}

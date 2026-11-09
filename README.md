@@ -6,6 +6,7 @@
 - `score.py` 读取已保存结果，使用官方 MMStar 适配器离线评分，不需要再次访问模型服务。
 - `common.py` 保存两阶段共用的 EvalScope 数据、提示、解析和结果格式逻辑。
 - `requirements.txt` 是已验证评测环境的固定依赖版本。
+- `sampling_params.json` 固定三类模型的采样参数和输出上限。
 
 ## 安装
 
@@ -58,6 +59,10 @@ python score.py --run-dir runs/a100/gemma-smoke --require-complete
 
 正式评测去掉 `--limit-per-subset`，并固定模型 revision、服务参数、温度、随机种子和题目快照。各平台实际使用的 LightLLM 启动脚本位于 [`lightllm_scripts/`](lightllm_scripts/README.md)。
 
+采样参数统一记录在 [`sampling_params.json`](sampling_params.json)。运行 `infer.py` 时按模型传入对应的 `--max-tokens` 和 `--disable-thinking`，公共参数固定为 `temperature=0`、`top_p=1`、`seed=42`。Gemma 输出上限为 4096，Qwen3.6 和 Qwen3-VL 输出上限为 8192。
+
+启动命令和采样参数足以复现服务请求配置。要复现正式分数，还需要同时固定对应平台的 LightLLM 运行树及补丁、模型权重 revision 或文件校验值、厂商镜像和 Python 依赖、EvalScope commit、MMStar 题目快照，以及请求并发、超时和断点恢复策略。平台运行树的来源和补丁边界已在 `lightllm_scripts/README.md` 中标明。
+
 ## 目录说明
 
 ```text
@@ -65,5 +70,6 @@ infer.py                  请求服务并保存结果
 score.py                  离线评分
 common.py                 共用评测逻辑
 requirements.txt          固定评测依赖
+sampling_params.json      固定采样参数
 lightllm_scripts/         各平台实际启动脚本快照
 ```
